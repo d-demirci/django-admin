@@ -10,12 +10,12 @@ Recommendation applications developed using Django, including for the moment jus
 The source code for this project is available from:
 [https://github.com/rogargon/myrecommendations](https://github.com/rogargon/myrecommendations)
 
-The project includes **unit testing** and **End-To-End tests** using Behave and PhantomJS. **CI/CD** (Continuous Integration and Continuous Deployment) using Travis-CI and Heroku. Deployed at: 
+The project includes **unit testing** and **End-To-End tests** using Behave and PhantomJS. **CI/CD** (Continuous Integration and Continuous Deployment) using Travis-CI and Heroku. Deployed at:
 [http://myrecommendations.herokuapp.com/myrestaurants]()
 
 # Starting the MyRecommendations Project
 
-After installing [Python and Django](https://docs.djangoproject.com/en/1.10/topics/install/), the recommended approach is using [virtualenv](https://virtualenv.pypa.io/en/stable/), it is possible to create a new Django project from the command line, as also documented in the [Django Tutorial part 1](https://docs.djangoproject.com/en/1.10/intro/tutorial01/). 
+After installing [Python and Django](https://docs.djangoproject.com/en/1.10/topics/install/), the recommended approach is using [virtualenv](https://virtualenv.pypa.io/en/stable/), it is possible to create a new Django project from the command line, as also documented in the [Django Tutorial part 1](https://docs.djangoproject.com/en/1.10/intro/tutorial01/).
 
 In our case the project is called 'myrecommendations':
 
@@ -148,7 +148,7 @@ class Review(models.Model):
 
 class RestaurantReview(Review):
     restaurant = models.ForeignKey(Restaurant)
-    
+
     class Meta:
         unique_together = ("restaurant", "user") # Only one review per user and restaurant
 ```
@@ -188,7 +188,7 @@ $ python manage.py runserver
 And check that you can administrate the new models from:
 [http://localhost:8000/admin]()
 
-Designing MyRestaurants URLs 
+Designing MyRestaurants URLs
 --------------------------
 
 From the project root directory, edit *myrecommendations/urls.py* and add to the list of **urlpatterns** those for the application:
@@ -297,7 +297,7 @@ class DishCreate(CreateView):
 	model = Dish
 	template_name = 'myrestaurants/form.html'
 	form_class = DishForm
-	
+
 	def form_valid(self, form):
 		form.instance.user = self.request.user
 		form.instance.restaurant = Restaurant.objects.get(id=self.kwargs['pk'])
@@ -357,7 +357,7 @@ Next create *restaurant_list.html* in *myrestaurants/templates/myrestaurants*:
 
 {% block content %}
 <h1>
-	Restaurants 
+	Restaurants
 	{% if user %}(<a href="{% url 'myrestaurants:restaurant_create' %}">add</a>){% endif %}
 </h1>
 <ul>
@@ -510,7 +510,7 @@ $ python manage.py migrate
 Image Field
 ===========
 
-The image field is a kind of field in the data model that allows associating images to model entities and storing them. 
+The image field is a kind of field in the data model that allows associating images to model entities and storing them.
 
 First of all, it is necessary to install the Python image library Pillow. Follow:
 [http://pillow.readthedocs.org/en/latest/installation.html](http://pillow.readthedocs.org/en/latest/installation.html)
@@ -561,7 +561,7 @@ This field can be then used from the templates to display images, for instance t
 	<p><img src="{{ dish.image.url }}"/></p>
 {% endif %}
 
-<p>Served by 
+<p>Served by
 	<a href="{% url 'myrestaurants:restaurant_detail' dish.restaurant.id %}">
 		{{ dish.restaurant.name}}
 	</a>
@@ -638,3 +638,24 @@ To run the tests:
 $ python manage.py test
 ```
 
+
+
+http://stackoverflow.com/questions/8408046/how-to-change-the-name-of-a-django-app
+
+Rename the folder which is in your project root
+
+Change any references to your app in their dependencies, i.e. the app's views.py, urls.py , 'manage.py' , and settings.py files.
+
+Edit the database table django_content_type with the following command: UPDATE django_content_type SET app_label='<NewAppName>' WHERE app_label='<OldAppName>'
+
+Also if you have models, you will have to rename the model tables.
+For postgres use ALTER TABLE <oldAppName>_modelName RENAME TO <newAppName>_modelName.
+For mysql too I think it is the same (as mentioned by @null_radix)
+For renaming models, you'll need to change django_content_type.name.
+For postgres use UPDATE django_content_type SET name='<newModelName>' where name='<oldModelName>' AND app_label='<OldAppName>'.
+
+(For Django >= 1.7)
+Update the django_migrations table to avoid having your previous migrations re-run:
+UPDATE django_migrations SET app='<NewAppName>' WHERE app='<OldAppName>'
+
+If your models.py 's Meta Class has app_name listed, make sure to rename that too (mentioned by @will).
