@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.views.generic import DetailView, ListView, UpdateView
 from models import Restaurant, Dish
 from forms import RestaurantForm, DishForm
-from views import RestaurantCreate, DishCreate, RestaurantDetail, review, LoginRequiredCheckIsOwnerUpdateView, \
+from views import  RestaurantCreate, DishCreate,  RestaurantDetail, review, LoginRequiredCheckIsOwnerUpdateView, \
     APIDishDetail, APIDishList, APIRestaurantDetail, APIRestaurantList, APIRestaurantReviewDetail, APIRestaurantReviewList
 
 urlpatterns = [
@@ -59,6 +59,8 @@ urlpatterns = [
     url(r'^restaurants/(?P<pk>\d+)/reviews/create/$',
         review,
         name='review_create'),
+
+
 ]
 
 urlpatterns += [

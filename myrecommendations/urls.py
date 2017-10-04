@@ -20,6 +20,8 @@ from django.views.static import serve
 from django.conf import settings
 
 urlpatterns = [
+    url(r'^jet/', include('jet.urls', 'jet')),
+    url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     url(r'^admin/', admin.site.urls),
     url(r'^myrestaurants/', include('myrestaurants.urls', namespace='myrestaurants')),
     url(r'^accounts/login/$', login, name='login'),

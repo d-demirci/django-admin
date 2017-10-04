@@ -12,7 +12,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from models import RestaurantReview, Restaurant, Dish
 from forms import RestaurantForm, DishForm
-from serializers import RestaurantSerializer, DishSerializer, RestaurantReviewSerializer
+from serializers import  RestaurantSerializer, DishSerializer, RestaurantReviewSerializer
 
 # Security Mixins
 
@@ -50,6 +50,7 @@ class RestaurantCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(RestaurantCreate, self).form_valid(form)
+
 
 class DishCreate(LoginRequiredMixin, CreateView):
     model = Dish
@@ -97,6 +98,7 @@ class APIRestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
     model = Restaurant
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
+
 
 class APIDishList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)

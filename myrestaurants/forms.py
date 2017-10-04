@@ -6,6 +6,7 @@ class RestaurantForm(ModelForm):
         model = Restaurant
         exclude = ('user', 'date',)
 
+
 class DishForm(ModelForm):
     class Meta:
         model = Dish

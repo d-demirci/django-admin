@@ -22,7 +22,7 @@ MEDIA_URL = '/media/'
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'vylzaaaafz%l-7*l(voqwvg1$+bzxw7@rrj#h-^$5x@1bedtd*'
+SECRET_KEY = 'ollydiggerip6b3swof!sny12sd6i%ri^tf6s@#qntag@25zkb7&e!6(2%rbdigger'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -34,7 +34,10 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'myrestaurants',
+    'mysubes',
     'rest_framework',
+    'jet.dashboard',
+    'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -140,4 +143,3 @@ REST_FRAMEWORK = {
         'rest_framework_xml.renderers.XMLRenderer',
     ),
 }
-
